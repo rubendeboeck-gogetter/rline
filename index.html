@@ -1832,6 +1832,23 @@
         utm_content: utms.utm_content || ''
       });
 
+      // Send to Make.com webhook
+      var payload = {
+        name: document.getElementById('fname').value,
+        email: document.getElementById('femail').value,
+        services: services.join(','),
+        message: (document.getElementById('fmessage') || {}).value || '',
+        utm_source: utms.utm_source || '',
+        utm_medium: utms.utm_medium || '',
+        utm_campaign: utms.utm_campaign || '',
+        utm_content: utms.utm_content || ''
+      };
+      fetch('https://hook.eu2.make.com/8g4jrqphfihesmmndsd7rjejyntpa6ej', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).catch(function () {});
+
       var btn = e.target.querySelector('.form-submit');
       btn.textContent = 'Bericht verzonden!';
       btn.style.background = 'linear-gradient(135deg,#00C96B,#00A8F0)';
